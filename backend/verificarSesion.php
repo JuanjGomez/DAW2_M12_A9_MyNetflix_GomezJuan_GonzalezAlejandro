@@ -27,6 +27,9 @@
             die();
         }
 
+        // SweetAlert
+        $_SESSION['successLogin'] = true;
+
         // Verificar contrasena hasheada
         if($user && password_verify($password, $user['password_u'])){
             $_SESSION['idUser'] = $user['id_u'];

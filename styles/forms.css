@@ -38,18 +38,25 @@ h1{
 }
 #formRegistro{
     display: flex;
+    flex-direction: column;
     background-color: #2E2828;
-    justify-content: center;
-    align-items: center;
-    padding: 40px;
+    padding: 20px;
     border-radius: 15px;
     margin-top: 20px;
-    position: fixed;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    max-width: 600px;              /* Limita el ancho del formulario */
+    margin: 20px auto;             /* Centra el formulario en la página */
+}
+.form-container{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 .form-column{
     display: flex;
-    margin-bottom: 20px;
+    flex-direction: column;
+    min-width: 225px;              
 }
 input{
     padding: 10px;
@@ -68,7 +75,7 @@ label{
     margin-top: 10px;
     font-size: 14px;
     font-weight: bold;
-    margin: 20px;
+    margin: 10px;
     margin-bottom: 10px;
     max-width: 200px;            /* Limita el ancho del texto */
     overflow-wrap: break-word;   /* Rompe palabras largas si es necesario */

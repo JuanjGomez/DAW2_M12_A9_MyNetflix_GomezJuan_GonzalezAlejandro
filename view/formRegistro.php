@@ -4,6 +4,14 @@
         header('Location: ../index.php');
         exit();
     }
+    if(isset($_SESSION['esperaPeticion']) && $_SESSION['esperaPeticion']){
+        echo '<script>let esperaPeticion = true; </script>';
+        unset($_SESSION['esperaPeticion']);
+    }
+    if(isset($_SESSION['errorCrear']) && $_SESSION['errorCrear']){
+        echo '<script>let errorCrear = true; </script>';
+        unset($_SESSION['errorCrear']);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,36 +32,34 @@
     <div id="centrarDiv">
         <div id="formRegistro">
             <form method="POST" action="../backend/insertUser.php">
-                <div class="form-column">
-                    <label for="username">Username:<br>
-                        <input type="text" id="username" name="username" placeholder="Ex: Joan123">
-                    </label>
-                    <br>
-                    <span class="error" id="errorUsername"></span><p></p>
-                    <label for="email">Email:<br>
-                        <input type="email" id="email" name="email" placeholder="Ex: example@gmail.com">
-                    </label>
-                    <br>
-                    <span class="error" id="errorEmail"></span><p></p>
-                </div>
-                <div class="form-column">
-                    <label for="pwe">Contrasena: <br>
-                        <input type="password" id="pwd" name="pwd" placeholder="asdASD123">
-                    </label>
-                    <br>
-                    <span class="error" id="errorPwd"></span><p></p>
-                    <label for="rPwd">Repetir Contrasena: <br>
-                        <input type="password" id="rPwd" name="rPwd" placeholder="asdASD123">
-                    </label>
-                    <br>
-                    <span class="error" id="errorRpwd"></span><p></p>
+                <div class="form-container">
+                    <div class="form-column">
+                        <label for="username">Username:<br>
+                            <input type="text" id="username" name="username" placeholder="Ex: Joan123" value="<?php echo $_SESSION['usernameDuplicado'] ?? ''; ?>">
+                        </label>
+                        <span class="error" id="errorUsername"></span>
+                        <label for="email">Email:<br>
+                            <input type="email" id="email" name="email" placeholder="Ex: example@gmail.com" value="<?php echo $_SESSION['emailDuplicado'] ?? '' ?>">
+                        </label>
+                        <span class="error" id="errorEmail"></span>
+                    </div>
+                    <div class="form-column">
+                        <label for="pwe">Contrasena: <br>
+                            <input type="password" id="pwd" name="pwd" placeholder="asdASD123">
+                        </label>
+                        <span class="error" id="errorPwd"></span>
+                        <label for="rPwd">Repetir Contrasena: <br>
+                            <input type="password" id="rPwd" name="rPwd" placeholder="asdASD123">
+                        </label>
+                        <span class="error" id="errorRpwd"></span>
+                    </div>
                 </div>
                 <div id="btn-submit">
                     <button type="submit" id="btn-sesion" disabled>Registrarse</button>
                 </div>
+                <br>
+                <hr>
             </form>
-            <br>
-            <hr>
             <div id="centrarBotones">
                 <a href="../index.php"><button id="btn-formInicio">Inicio</button></a>
                 <a href="formSesion.php"><button id="btn-formCombinado">Iniciar Sesion</button></a>

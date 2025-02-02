@@ -57,7 +57,7 @@ document.getElementById("pwd").onblur = function() {
     if(pwd.length == 0 || pwd == null || /^\s+$/.test(pwd)){
         errorPwd = "El campo no puede estar vacio."
         inputPwd.style.border = "2px solid red"
-    }else if(pwd.length > 6){
+    }else if(pwd.length < 6){
         errorPwd = "La campo debe tener al menos 6 caracteres."
         inputPwd.style.border = "2px solid red"
     }else if(!patron(pwd)){
@@ -103,17 +103,34 @@ function verificarForm(){
         document.getElementById('errorRpwd').innerHTML
     ]
     const campos = [
-        document.getElementById('username'),
-        document.getElementById('email'),
-        document.getElementById('pwd'),
-        document.getElementById('rPwd')
+        document.getElementById('username').value.trim(),
+        document.getElementById('email').value.trim(),
+        document.getElementById('pwd').value.trim(),
+        document.getElementById('rPwd').value.trim()
     ]
     const hayErrores = errores.some(error => error != "")
     const camposVacios = campos.some(campo => campo == "")
-    document.getElementById('btn-registro').disabled = hayErrores || camposVacios
+    document.getElementById('btn-sesion').disabled = hayErrores || camposVacios
 }
 // ----------------------------------------------------------------------------------------------
 
 // SweetAlerts ----------------------------------------------------------------------------------
-
+// Aviso que la peticion de alta no ha sido revisado por un admin
+if(typeof esperaPeticion !== 'undefined' && esperaPeticion) {
+    Swal.fire({
+        title: 'Usuario a espera!',
+        text: 'Por favor, su solicitud de alta sigue pendiente.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+    })
+}
+// Aviso que ya hay un usuario con mismo username
+if(typeof errorCrear !== 'undefined' && errorCrear){
+    Swal.fire({
+        title: 'Error!',
+        text: 'Ya hay un usuario con el mismo username.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+    })
+}
 // ----------------------------------------------------------------------------------------------

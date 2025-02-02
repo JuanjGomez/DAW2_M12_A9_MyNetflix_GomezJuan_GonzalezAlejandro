@@ -48,6 +48,8 @@
         $usuarioDuplicado = $stmtVerificarDuplicados->fetch(PDO::FETCH_ASSOC);
 
         if($usuarioDuplicado){
+            $_SESSION['usernameDuplicado'] = $username;
+            $_SESSION['emailDuplicado'] = $email;
             $_SESSION['errorCrear'] = true;
             header('Location:../view/formRegistro.php');
             die();

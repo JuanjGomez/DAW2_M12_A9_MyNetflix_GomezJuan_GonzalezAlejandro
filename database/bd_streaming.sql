@@ -73,4 +73,4 @@ INSERT INTO `bd_streaming`.`tbl_roles` (`nombre_rol`) VALUES ('administrador');
 INSERT INTO `bd_streaming`.`tbl_roles` (`nombre_rol`) VALUES ('usuario');
 
 -- INSERTS DE USUARIOS
-INSERT INTO `bd_streaming`.`tbl_roles` (`username_u`, `email_u`, `password_u`, `activo_u`) VALUES ('admin', 'admin@gmail.com', 'asdASD123', TRUE, 1);
+INSERT INTO `bd_streaming`.`tbl_usuarios` (`username_u`, `email_u`, `password_u`, `activo_u`, `id_rol`) VALUES ('admin', 'admin@gmail.com', 'asdASD123', TRUE, 1);

@@ -5,6 +5,8 @@
     }
 
     require_once '../database/conexion.php';
+    session_start();
+
     $username = trim($_POST['username']);
     $password = trim($_POST['pwd']);
 
@@ -18,7 +20,6 @@
         $stmtUser->bindParam(':username', $username, PDO::PARAM_STR);
         $stmtUser->execute();
         $user = $stmtUser->fetch(PDO::FETCH_ASSOC);
-        session_start();
 
         // Verificar si el usuario existe
         if(!$user){
@@ -27,21 +28,25 @@
             die();
         }
 
-        // SweetAlert
-        $_SESSION['successLogin'] = true;
-
         // Verificar contrasena hasheada
         if($user && password_verify($password, $user['password_u'])){
             $_SESSION['idUser'] = $user['id_u'];
-            if($user['nombre_rol'] == 'administrador'){
+            $_SESSION['rol'] = $user['nombre_rol'];
+            $_SESSION['successLogin'] = true; // SweetAlert
+
+            if($user['nombre_rol'] === 'administrador'){
                 $_SESSION['rol'] = 'administrador';
                 header('Location:../view/admin.php');
                 exit();
-            } else if($user['nombre_rol'] == 'usuario'){
+            } else if($user['nombre_rol'] === 'usuario'){
                 $_SESSION['rol'] = 'usuario';
                 header('Location: ../index.php');
                 exit();
             }
+        } else {
+            $_SESSION['errorLogin'] = true;
+            header('Location:../view/formSesion.php');
+            die();
         }
     } catch (PDOException $e){
         echo "Error: ".$e->getMessage();

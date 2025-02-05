@@ -3,19 +3,18 @@
 document.getElementById('username').onblur = function() {
     let username = this.value.trim()
     let errorUsername = ""
-    let inputUsername = document.getElementById('username')
 
     if(username.length == 0 || username == null || /^\s+$/.test(username)) {
         errorUsername = "El campo no puede estar vacio."
-        inputUsername.style.border = "2px solid red"
+        this.style.border = "2px solid red"
     }else if(username.length < 4){
         errorUsername = "El username debe tener al menos 4 caracteres."
-        inputUsername.style.border = "2px solid red"
+        this.style.border = "2px solid red"
     }else if(!letrasYnumeros(username)){
         errorUsername = "El username solo puede contener letras y numeros."
-        inputUsername.style.border = "2px solid red"
+        this.style.border = "2px solid red"
     } else {
-        inputUsername.style.border = ""
+        this.style.border = ""
     }
 
     function letrasYnumeros(username) {
@@ -29,16 +28,15 @@ document.getElementById('username').onblur = function() {
 document.getElementById('email').onblur = function() {
     let email = this.value.trim()
     let errorEmail = ""
-    let inputEmail = document.getElementById('email')
 
     if(email.length == 0 || email == null || /^\s+$/.test(email)){
         errorEmail = "El campo no puede estar vacio."
-        inputEmail.style.border = "2px solid red"
+        this.style.border = "2px solid red"
     }else if(!emailValido(email)){
         errorEmail = "El email no es valido."
-        inputEmail.style.border = "2px solid red"
+        this.style.border = "2px solid red"
     } else {
-        inputEmail.style.border = ""
+        this.style.border = ""
     }
 
     function emailValido(email) {
@@ -52,19 +50,18 @@ document.getElementById('email').onblur = function() {
 document.getElementById("pwd").onblur = function() {
     let pwd = this.value.trim()
     let errorPwd = ""
-    let inputPwd = document.getElementById('pwd')
 
     if(pwd.length == 0 || pwd == null || /^\s+$/.test(pwd)){
         errorPwd = "El campo no puede estar vacio."
-        inputPwd.style.border = "2px solid red"
+        this.style.border = "2px solid red"
     }else if(pwd.length < 6){
         errorPwd = "La campo debe tener al menos 6 caracteres."
-        inputPwd.style.border = "2px solid red"
+        this.style.border = "2px solid red"
     }else if(!patron(pwd)){
         errorPwd = "La campo debe tener al menos mayúscula, una minúscula y un número."
-        inputPwd.style.border = "2px solid red"
+        this.style.border = "2px solid red"
     } else {
-        inputPwd.style.border = ""
+        this.style.border = ""
     }
 
     function patron(pwd){
@@ -79,16 +76,15 @@ document.getElementById('rPwd').onblur = function() {
     let pwd = document.getElementById('pwd').value
     let rPwd = this.value.trim()
     let errorRPwd = ""
-    let inputRpwd = document.getElementById("rPwd")
 
     if(rPwd == null || rPwd.length == 0 || /^\s+$/.test(rPwd)){
         errorRPwd = "El campo no puede estar vacio."
-        inputRpwd.style.border = "2px solid red"
+        this.style.border = "2px solid red"
     }else if(pwd !== rPwd){
         errorRPwd = "Las contraseñas no coinciden."
-        inputRpwd.style.border = "2px solid red"
+        this.style.border = "2px solid red"
     } else {
-        inputRpwd.style.border = ""
+        this.style.border = ""
     }
 
     document.getElementById('errorRpwd').innerHTML = errorRPwd

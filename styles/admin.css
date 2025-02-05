@@ -1,0 +1,33 @@
+body{
+    background-color: #000000 !important;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+header{
+    background-color: #D60404;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+img{
+    height: 100px;
+    object-fit: cover;
+    margin: 0px;
+}
+.botonImg {
+    display: inline-block;
+    background-color: #007bff; /* Color de fondo */
+    border-radius: 5px;        /* Bordes redondeados */
+    text-decoration: none;     /* Sin subrayado */
+    transition: background-color 0.3s ease;
+}
+
+.botonImg:hover {
+    background-color: #0056b3; /* Efecto hover */
+}
+
+.botonImg img {
+    max-width: 100px;          /* Ajuste de la imagen */
+    height: auto;
+}

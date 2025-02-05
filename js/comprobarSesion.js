@@ -3,17 +3,16 @@
 document.getElementById("username").onblur = function () {
     let username = this.value.trim()
     let errorUsername = ""
-    let inputUsername = document.getElementById("username")
     
     if(username.length == 0 || username == null || /^\s+$/.test(username)) { // Comprobar si el campo esta vacio
         errorUsername = "El campo no puede esta vacio."
-        inputUsername.style.border = "2px solid red"
+        this.style.border = "2px solid red"
         
     } else if (!letrasYnumeros(username)){
         errorUsername = "El username solo puede tener letras y numeros."
-        inputUsername.style.border = "2px solid red"
+        this.style.border = "2px solid red"
     } else {
-        inputUsername.style.border = ""
+        this.style.border = ""
     }
 
     function letrasYnumeros(username){
@@ -27,13 +26,12 @@ document.getElementById("username").onblur = function () {
 document.getElementById("pwd").onblur = function () {
     let pwd = this.value.trim()
     let errorPwd = ""
-    let inputPwd = document.getElementById("pwd")
 
     if(pwd == null || pwd.length == 0 || /^\s+$/.test(pwd)) {
         errorPwd = "El campo no puede estar vacio."
-        inputPwd.style.border = "2px solid red"
+        this.style.border = "2px solid red"
     }else{
-        inputPwd.style.border = ""
+        this.style.border = ""
     }
 
     document.getElementById("errorPwd").innerHTML = errorPwd

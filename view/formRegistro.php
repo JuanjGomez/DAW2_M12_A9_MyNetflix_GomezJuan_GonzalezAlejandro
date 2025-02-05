@@ -66,6 +66,9 @@
             </div>
         </div>
     </div>
+    <?php
+        unset($_SESSION['usernameDuplicado'], $_SESSION['emailDuplicado']);
+    ?>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.15.10/dist/sweetalert2.all.min.js" integrity="sha256-A9eg62yvWE5VANz+IGxBVsR7N9EWZmRsRwaGdR96vAc=" crossorigin="anonymous"></script>
     <script src="../js/comprobarRegistro.js"></script>
 </body>

@@ -31,15 +31,14 @@
         // Verificar contrasena hasheada
         if($user && password_verify($password, $user['password_u'])){
             $_SESSION['idUser'] = $user['id_u'];
+            $_SESSION['username'] = $user['username_u'];
             $_SESSION['rol'] = $user['nombre_rol'];
             $_SESSION['successLogin'] = true; // SweetAlert
 
             if($user['nombre_rol'] === 'administrador'){
-                $_SESSION['rol'] = 'administrador';
                 header('Location:../view/admin.php');
                 exit();
             } else if($user['nombre_rol'] === 'usuario'){
-                $_SESSION['rol'] = 'usuario';
                 header('Location: ../index.php');
                 exit();
             }

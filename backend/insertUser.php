@@ -67,6 +67,7 @@
 
         // Obtener el id del usuario recién creado
         $idUser = $conn->lastInsertId();
+        $_SESSION['idUser'] = $idUser;
 
         // Insert de solicitud
         $sqlInsertSolicitud = "INSERT INTO tbl_solicitudes_registro (id_u, estado) 

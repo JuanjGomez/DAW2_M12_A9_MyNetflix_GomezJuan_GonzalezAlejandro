@@ -102,12 +102,13 @@
             $stmtInsertCategoriaPeli = $conn->prepare($sqlInsertCategoriaPeli);
             $stmtInsertCategoriaPeli->bindParam(':idPeli', $idPelicula, PDO::PARAM_INT);
             $stmtInsertCategoriaPeli->bindParam(':idCategoria', $categoria, PDO::PARAM_INT);
+            $stmtInsertCategoriaPeli->execute();
         }
 
         $conn->commit();
 
         $_SESSION['peliculaCreada'] = true;
-        header('Location:../index.php');
+        header('Location:../view/gestionarPeliculas.php');
         exit();
     } catch(PDOException $e){
         $conn->rollBack();

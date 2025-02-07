@@ -35,11 +35,10 @@
             </div>
             <div class="col-md-3">
                 <div class="container_img grow">
-                    <a href="gestionarPeticiones.php" class="botonImg">
-                        <img src="../img/solicitudes.png" alt="Ir a Gestionar Solicitudes">
+                    <a href="gestionarUsuarios.php" class="botonImg">
+                        <img src="../img/solicitudes.png" alt="Ir a gestionarUsuarios">
                     </a>
                 </div>
-                <p>Gestionar Peticiones</p>
             </div>
         </div>
     </div>

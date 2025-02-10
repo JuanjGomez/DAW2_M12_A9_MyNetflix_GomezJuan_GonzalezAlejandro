@@ -74,16 +74,19 @@ document.getElementById('director').onblur = function() {
     document.getElementById('errorDirector').innerHTML = errorDirector
     verificarForm()
 }
+// Verificar si estamos editando una pelicula
+const esEdicion = document.querySelector("input[name = 'idPeli']").value.trim() !== ""
+
 // Validacion de la imagen que va a ser como poster
 document.getElementById("poster").onmouseleave = function() {
     let fileInput = this
     let file = fileInput.files[0]
     let errorPoster = ""
 
-    if(!file){
-        errorPoster = "Debe seleccionar una imagen."
+    if(!file && !esEdicion){// Si es una pelicula nueva el poster es obligatorio
+        errorPoster = "Debes seleccionar una imagen."
         this.style.border = "2px solid red"
-    } else if(!file.name.match(/\.(jpg|jpeg|png)$/i)){
+    } else if(file && !file.name.match(/\.(jpg|jpeg|png)$/i)){
         errorPoster = "El archivo debe ser una imagen (JPG, JPEG, PNG)."
         this.style.border = "2px solid red"
     } else {
@@ -131,7 +134,7 @@ function verificarForm() {
         document.getElementById('descripcion').value.trim(),
         document.getElementById('fechaEstreno').value.trim(),
         document.getElementById('director').value.trim(),
-        document.getElementById('poster').files.length > 0,
+        (esEdicion || document.getElementById('poster').files.length > 0), // Poster opcional en edición
         document.querySelectorAll("input[name='categorias[]']:checked").length > 0
     ]
 

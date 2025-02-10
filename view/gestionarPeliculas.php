@@ -5,6 +5,20 @@
         exit();
     }
 
+    // Manejo de sesiones para SweetAlerts
+    if(isset($_SESSION['deleteCorrect']) && $_SESSION['deleteCorrect']){
+        echo '<script>let deleteCorrect = true;</script>';
+        unset($_SESSION['deleteCorrect']);
+    }
+    if(isset($_SESSION['peliculaCreada']) && $_SESSION['peliculaCreada']){
+        echo '<script>let peliculaCreada = true;</script>';
+        unset($_SESSION['peliculaCreada']);
+    }
+    if(isset($_SESSION['editarCreada']) && $_SESSION['editarCreada']){
+        echo '<script>let editarCreada = true;</script>';
+        unset($_SESSION['editarCreada']);
+    }
+
     // Consulta para traer las peliculas
     require_once '../database/conexion.php';
     $sql = "SELECT p.*, GROUP_CONCAT(c.nombre_cat SEPARATOR ', ') AS generos 
@@ -35,7 +49,7 @@
             <th>Poster</th>
             <th>Fecha Estreno</th>
             <th>Director</th>
-            <th>Genero(s)</th>
+            <th>Categoria(s)</th>
             <th>Acciones</th>
         </tr>
         <?php if(isset($peliculas)): ?>
@@ -47,8 +61,14 @@
                     <td><?= $pelicula['director_peli']?></td>
                     <td><?= $pelicula['generos'] ?></td>
                     <td>
-                        <button><a href="">Editar</a></button>
-                        <button><a href="">Eliminar</a></button>
+                        <form method="POST" action="formPelicula.php">
+                            <input type="hidden" name="idPeli" value="<?= $pelicula['id_peli'] ?>">
+                            <button type="submit" class="btn btn-warning">Editar</button>
+                        </form>
+                        <form method="POST" action="../backend/deletePeli.php" id="deleteForm">
+                            <input type="hidden" name="idPeli" value="<?= $pelicula['id_peli'] ?>">
+                            <button type="submit" class="btn btn-danger" onclick="confirmarDelete(<?= $pelicula['id_peli'] ?>)">Eliminar</button>
+                        </form>
                     </td>
                 </tr>
             <?php endforeach ?>
@@ -61,5 +81,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js" integrity="sha256-1m4qVbsdcSU19tulVTbeQReg0BjZiW6yGffnlr/NJu4=" crossorigin="anonymous"></script>
+    <script src="../js/toolsGestiPeliculas.js"></script>
 </body>
 </html>

@@ -71,8 +71,12 @@ foreach ($peliculas as $pelicula) {
                 <i class="fas fa-user"></i>
             </button>
             <div class="dropdown-content">
-                <a href="view/formSesion.php">Inicio Sesión</a>
-                <a href="view/formRegistro.php">Registro</a>
+                <?php if(isset($_SESSION['idUser']) && $_SESSION['idUser'] != null) : ?>
+                    <a href="../backend/logout.php">Cerrar Sesión</a>
+                <?php else : ?>
+                    <a href="view/formSesion.php">Inicio Sesión</a>
+                    <a href="view/formRegistro.php">Registro</a>
+                <?php endif; ?>
             </div>
         </div>
 

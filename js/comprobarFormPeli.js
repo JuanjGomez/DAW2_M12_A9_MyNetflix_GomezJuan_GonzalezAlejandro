@@ -145,6 +145,7 @@ function verificarForm() {
 // ---------------------------------------------------------------------------------------------------------
 
 // SweetAlerts ---------------------------------------------------------------------------------------------
+// Alert de titulos de peliculas duplicados
 if(typeof errorTituloDuplicado !== 'undefined' && errorTituloDuplicado){
     Swal.fire({
         title: 'Error!',
@@ -153,4 +154,37 @@ if(typeof errorTituloDuplicado !== 'undefined' && errorTituloDuplicado){
         confirmButtonText: 'Aceptar'
     })
 }
+
+// Alert de tipo de imagen no permitido
+if(typeof errorImagenTipo !== 'undefined' && errorImagenTipo){
+    Swal.fire({
+        title: 'Error!',
+        text: 'El archivo seleccionado no es una imagen (JPG, JPEG, PNG).',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+    })
+}
+
+// Alert sobre que se ha sobrepasado el tamano a guardar 
+if(typeof errorImagenTamano !== "undefined" && errorImagenTamano){
+    Swal.fire({
+        title: 'Error!',
+        text: 'El archivo seleccionado supera el tamaño permitido (10MB).',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+    })
+}
+
+// Alert sobre que si ha ocurrido un error al subir la imagen
+if(typeof errorImagenSubida !== "undefined" && errorImagenSubida){
+    Swal.fire({
+        title: 'Error!',
+        text: 'Hubo un error al subir la imagen.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+    })
+}
+
+// Alert de que fue un exito al crear la pelicula
+
 // ---------------------------------------------------------------------------------------------------------

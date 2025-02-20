@@ -6,9 +6,22 @@
     }
     require_once '../database/conexion.php';
 
+    // Esto es para los sweetAlerts
     if(isset($_SESSION['errorTituloDuplicado'])){
         echo '<script>let errorTituloDuplicado = true;</script>';
         unset($_SESSION['errorTituloDuplicado']);
+    }
+    if(isset($_SESSION['errorImagenTipo'])){
+        echo '<script>let errorImagenTipo = true;</script>';
+        unset($_SESSION['errorImagenTipo']);
+    }
+    if(isset($_SESSION['errorImagenTamano'])){
+        echo '<script>let errorImagenTamano = true;</script>';
+        unset($_SESSION['errorImagenTamano']);
+    }
+    if(isset($_SESSION['errorImagenSubida'])){
+        echo '<script>let errorImagenSubida = true;</script>';
+        unset($_SESSION['errorImagenSubida']);
     }
 
     // Consulta para traer todas las categorias de la base de datos
@@ -66,7 +79,7 @@
             <img src="../img/logoN.png">
         </div>
     </header>
-    <button><a href="gestionarPeliculas.php">VOLVER</a></button>
+    <a href="gestionarPeliculas.php"><button class="btn btn-danger">VOLVER</button></a>
     <h1><?= isset($pelicula['id_peli']) ? 'EDITAR PELÍCULA' : 'NUEVA PELÍCULA' ?></h1>
     <div id="centrarDiv">
         <div id="formRegistro">

@@ -29,14 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['crear_usuario'])) {
     $stmt->execute();
 }
 
-// Manejo de eliminación de usuario
-if (isset($_GET['eliminar'])) {
-    $id_u = $_GET['eliminar'];
-    $sql = "DELETE FROM tbl_usuarios WHERE id_u = :id";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':id', $id_u, PDO::PARAM_INT);
-    $stmt->execute();
-}
 
 
 // Obtener lista de usuarios
@@ -62,6 +54,13 @@ $roles = $stmt_roles->fetchAll(PDO::FETCH_ASSOC);
     <title>Gestionar Usuarios</title>
 </head>
 <body>
+<?php if (isset($_SESSION['success'])): ?>
+    <div class="alert alert-success"><?php echo $_SESSION['success']; unset($_SESSION['success']); ?></div>
+<?php endif; ?>
+
+<?php if (isset($_SESSION['error'])): ?>
+    <div class="alert alert-danger"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></div>
+<?php endif; ?>
     <header>
         <div id="logoCenter">
             <img src="../img/logoN.png">
@@ -91,7 +90,7 @@ $roles = $stmt_roles->fetchAll(PDO::FETCH_ASSOC);
                         <td><?php echo $row['nombre_rol']; ?></td>
                         <td>
                             <a href="editarUsuario.php?id=<?php echo $row['id_u']; ?>" class="btn btn-warning">Editar</a>
-                            <a href="gestionarUsuarios.php?eliminar=<?php echo $row['id_u']; ?>" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar este usuario?');">Eliminar</a>
+                            <a href="../backend/eliminarUser.php?id=<?php echo $row['id_u']; ?>" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar este usuario?');">Eliminar</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -108,7 +107,7 @@ $roles = $stmt_roles->fetchAll(PDO::FETCH_ASSOC);
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="gestionarUsuarios.php">
+                    <form method="POST" action="../backend/crearUsuario.php">
                         <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
                             <input type="text" class="form-control" id="username" name="username" required>

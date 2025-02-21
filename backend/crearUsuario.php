@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['crear_usuario'])) {
 
     if ($existeUsuario > 0) {
         $_SESSION['error'] = "El correo electrónico ya está registrado.";
-        header('Location: gestionarUsuarios.php');
+        header('Location: ../view/gestionarUsuarios.php');
         exit();
     }
 

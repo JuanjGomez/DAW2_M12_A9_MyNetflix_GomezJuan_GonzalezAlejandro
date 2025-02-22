@@ -72,7 +72,7 @@ foreach ($peliculas as $pelicula) {
             </button>
             <div class="dropdown-content">
                 <?php if(isset($_SESSION['idUser']) && $_SESSION['idUser'] != null) : ?>
-                    <a href="../backend/logout.php">Cerrar Sesión</a>
+                    <a href="./backend/cerrarSesion.php">Cerrar Sesión</a>
                 <?php else : ?>
                     <a href="view/formSesion.php">Inicio Sesión</a>
                     <a href="view/formRegistro.php">Registro</a>
@@ -111,11 +111,23 @@ foreach ($peliculas as $pelicula) {
             <h2 class="categoria-titulo"><?php echo htmlspecialchars($categoria); ?></h2>
             <div class="peliculas-grid">
                 <?php foreach ($peliculas as $pelicula): ?>
-                <div class="pelicula">
-                    <img src="<?php echo htmlspecialchars($pelicula['poster_peli']); ?>" 
-                         alt="<?php echo htmlspecialchars($pelicula['titulo_peli']); ?>">
-                    <h3><?php echo htmlspecialchars($pelicula['titulo_peli']); ?></h3>
-                </div>
+                    <?php if(isset($_SESSION['actividad']) && $_SESSION['actividad'] == 1): ?>
+                        <a href="view/verPelicula.php?idPeli=<?php echo $pelicula['id_peli']; ?>">
+                            <div class="pelicula">
+                                <img src="<?php echo htmlspecialchars($pelicula['poster_peli']); ?>" 
+                                    alt="<?php echo htmlspecialchars($pelicula['titulo_peli']); ?>">
+                                <h3><?php echo htmlspecialchars($pelicula['titulo_peli']); ?></h3>
+                            </div>
+                        </a>
+                    <?php else: ?>
+                        <a href="view/formSesion.php">
+                            <div class="pelicula">
+                                <img src="<?php echo htmlspecialchars($pelicula['poster_peli']); ?>" 
+                                    alt="<?php echo htmlspecialchars($pelicula['titulo_peli']); ?>">
+                                <h3><?php echo htmlspecialchars($pelicula['titulo_peli']); ?></h3>
+                            </div>
+                        </a>
+                    <?php endif; ?>
                 <?php endforeach; ?>
             </div>
         </div>

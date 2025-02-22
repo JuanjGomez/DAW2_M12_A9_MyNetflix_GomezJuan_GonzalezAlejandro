@@ -9,25 +9,104 @@ header{
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 10px;
+    justify-content: space-between;
+}
+header img{
+    height: 100px;
+    object-fit: cover;
+    margin: 0px;
+}
+.bienvenido{
+    color: white;
+    text-align: center;
+    margin-top: 20px;
+}
+h3{
+    color: white !important;
+    text-align: center;
+    margin-top: 20px;
+}
+.row{
+    padding-top: 50px;
+    display: flex;
+    justify-content:space-around;
+    gap: 20px;
+}
+.container_img{
+    margin-top: 20px;
+    height: 300px;
 }
 img{
-    height: 100px;
+    height: 300px;
     object-fit: cover;
     margin: 0px;
 }
 .botonImg {
     display: inline-block;
-    background-color: #007bff; /* Color de fondo */
     border-radius: 5px;        /* Bordes redondeados */
     text-decoration: none;     /* Sin subrayado */
     transition: background-color 0.3s ease;
+    padding: 10px; /* Espaciado interno */
 }
 
 .botonImg:hover {
-    background-color: #0056b3; /* Efecto hover */
+    background-color: red; /* Efecto hover */
 }
 
 .botonImg img {
-    max-width: 100px;          /* Ajuste de la imagen */
+    max-width: 300px;          /* Ajuste de la imagen */
     height: auto;
+}
+
+p {
+    color: white;
+    text-align: center;
+    margin-top: 40px;
+    font-size: 22.5px;
+}
+
+.user-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: transparent;
+    color: white;
+    padding: 10px;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropbtn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 5px;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.user-dropdown:hover .dropdown-content {
+    display: block;
 }

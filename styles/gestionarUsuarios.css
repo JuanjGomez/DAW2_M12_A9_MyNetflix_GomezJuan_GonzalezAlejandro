@@ -1,0 +1,17 @@
+/* Estilos básicos para la interfaz de administración */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+.table {
+    margin-top: 20px;
+}
+
+.modal-content {
+    padding: 20px;
+}

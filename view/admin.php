@@ -41,10 +41,21 @@
                 <p>Gestionar Peliculas</p>
             </div>
             <div class="col-md-3">
-                <a href="gestionarUsuarios.php" class="botonImg">
-                    <img src="../img/solicitudes.png" alt="Ir a gestionarUsuarios">
-                </a>
+                <div class="container_img grow">
+                    <a href="gestionarUsuarios.php" class="botonImg">
+                        <img src="../img/solicitudes.png" alt="Ir a Gestionar Usuarios">
+                    </a>
+                </div>
                 <p>Gestionar Usuarios</p>
+            </div>
+            <!-- Nueva sección Gestión de Solicitudes -->
+            <div class="col-md-3">
+                <div class="container_img grow">
+                    <a href="gestionSolicitudes.php" class="botonImg">
+                        <img src="../img/solicitudes.png" alt="Ir a Gestionar Solicitudes">
+                    </a>
+                </div>
+                <p>Gestión de Solicitudes</p>
             </div>
         </div>
     </div>

@@ -74,3 +74,12 @@ INSERT INTO `bd_streaming`.`tbl_roles` (`nombre_rol`) VALUES ('usuario');
 
 -- INSERTS DE USUARIOS
 INSERT INTO `bd_streaming`.`tbl_usuarios` (`username_u`, `email_u`, `password_u`, `activo_u`, `id_rol`) VALUES ('admin', 'admin@gmail.com', '$2y$10$9YAaDvpj8IDI7WRNVxVq6uYzMnCaUWDGMlU6LS.jv6dgpWcmqcswS', TRUE, 1);
+
+-- ALTERS DE LIKES
+ALTER TABLE `bd_streaming`.`tbl_likes`
+ADD UNIQUE INDEX `unique_like` (`id_u`, `id_peli`);
+
+ALTER TABLE `bd_streaming`.`tbl_likes`
+ADD COLUMN `fecha_like` TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
+CREATE INDEX `idx_peli` ON `bd_streaming`.`tbl_likes` (`id_peli`);

@@ -18,8 +18,9 @@ function cargarPeliculas(filtro = "", orden = "titulo", categoria = "") {
                     <tr>
                         <td>${pelicula.titulo_peli}</td>
                         <td><img src="../${pelicula.poster_peli}" width="100" alt="Poster"></td>
-                        <td>${pelicula.fecha_estreno_peli}</td>
-                        <td>${pelicula.director_peli}</td>
+                        <td id="fechaEstreno">${pelicula.fecha_estreno_peli}</td>
+                        <td id="sinopsis">${pelicula.descripcion_peli}</td>
+                        <td id="director">${pelicula.director_peli}</td>
                         <td>${pelicula.likes_peli}</td>
                         <td>${categoriasHTML}</td>
                         <td>

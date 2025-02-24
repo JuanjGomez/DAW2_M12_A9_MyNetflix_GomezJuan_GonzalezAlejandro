@@ -74,9 +74,11 @@
 
         // Insert de solicitud
         $sqlInsertSolicitud = "INSERT INTO tbl_solicitudes_registro (id_u, estado) 
-                                VALUES (:idUser)";
+                                VALUES (:idUser, :estado)";
         $stmtInsertSolicitud = $conn->prepare($sqlInsertSolicitud);
         $stmtInsertSolicitud->bindParam(':idUser', $idUser, PDO::PARAM_INT);
+        $estado = 'pendiente'; // O el estado que desees asignar
+        $stmtInsertSolicitud->bindParam(':estado', $estado, PDO::PARAM_STR);
         $stmtInsertSolicitud->execute();
 
         // Confirmar transacción

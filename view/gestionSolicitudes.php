@@ -24,7 +24,7 @@ $usuarios = $stmt->fetchAll();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/admin.css"> <!-- Enlace al archivo CSS -->
+    <link rel="stylesheet" href="../styles/solicitudes.css"> <!-- Enlace al archivo CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <title>Solicitudes de Registro</title>
 </head>

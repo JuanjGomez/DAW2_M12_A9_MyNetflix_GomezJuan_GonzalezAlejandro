@@ -62,7 +62,7 @@
         </div>
     </header>
     <h1>Gestionar Peliculas</h1>
-    <div class="divCentrar" id="botones">
+    <div class="divCentrarBotones" id="botones">
         <a href="admin.php"><button class="btn btn-danger">REGRESAR</button></a>
         <a href="formPelicula.php"><button class="btn btn-success">Añadir Pelicula</button></a>
     </div>
@@ -101,8 +101,9 @@
                 <tr>
                     <th>Título</th>
                     <th>Poster</th>
-                    <th>Fecha Estreno</th>
-                    <th>Director</th>
+                    <th id="fechaEstreno">Fecha Estreno</th>
+                    <th id="sinopsis">Sinopsis</th>
+                    <th id="director">Director</th>
                     <th>N° Likes</th>
                     <th>Categoria(s)</th>
                     <th>Acciones</th>

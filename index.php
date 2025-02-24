@@ -151,6 +151,17 @@ foreach ($peliculas as $pelicula) {
             text-decoration: none;
             background-color: #D60404;
         }
+
+        .pelicula-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .pelicula:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+        }
     </style>
 </head>
 <body>
@@ -203,9 +214,11 @@ foreach ($peliculas as $pelicula) {
             <div class="peliculas-grid">
                 <?php foreach ($peliculas as $pelicula) : ?>
                 <div class="pelicula">
-                    <img src="<?php echo htmlspecialchars($pelicula['poster_peli']); ?>" 
-                         alt="<?php echo htmlspecialchars($pelicula['titulo_peli']); ?>">
-                    <h3><?php echo htmlspecialchars($pelicula['titulo_peli']); ?></h3>
+                    <a href="view/detalle_pelicula.php?id=<?php echo $pelicula['id_peli']; ?>" class="pelicula-link">
+                        <img src="<?php echo htmlspecialchars($pelicula['poster_peli']); ?>" 
+                             alt="<?php echo htmlspecialchars($pelicula['titulo_peli']); ?>">
+                        <h3><?php echo htmlspecialchars($pelicula['titulo_peli']); ?></h3>
+                    </a>
                     <div class="like-container">
                         <button class="like-btn <?php echo $pelicula['user_like'] ? 'liked' : ''; ?>" 
                                 data-peli-id="<?php echo $pelicula['id_peli']; ?>">

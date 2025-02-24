@@ -60,10 +60,98 @@ foreach ($peliculas as $pelicula) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.15.10/dist/sweetalert2.min.css" integrity="sha256-ugbaEitpVSMgCpnPe7m69OyL6M47KkfE36OdRjQXD28=" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles/inicio.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.15.10/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="./styles/inicio.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #141414;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: #000;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #logoCenter {
+            flex: 1;
+            text-align: center;
+        }
+
+        #logoCenter img {
+            height: 50px;
+        }
+
+        .peliculas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .pelicula {
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .pelicula img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .pelicula h3 {
+            color: white;
+            margin: 10px 0;
+        }
+
+        .categoria-container {
+            margin: 20px 0;
+        }
+
+        .categoria-titulo {
+            color: white;
+            padding: 0 20px;
+        }
+
+        .filtros-container {
+            padding: 20px;
+            background-color: #1a1a1a;
+        }
+
+        .form-filtros {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .form-filtros select,
+        .form-filtros input,
+        .form-filtros button,
+        .form-filtros .btn-reset {
+            padding: 8px 15px;
+            border-radius: 4px;
+            border: 1px solid #333;
+            background-color: #2a2a2a;
+            color: white;
+        }
+
+        .btn-reset {
+            text-decoration: none;
+            background-color: #D60404;
+        }
+    </style>
 </head>
 <body>
     <header>

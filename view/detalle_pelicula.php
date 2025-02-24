@@ -45,56 +45,121 @@ if (!$pelicula) {
             background-color: #141414;
             font-family: Arial, sans-serif;
             color: white;
+            min-height: 100vh;
         }
 
         .container {
             max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .volver-btn {
+            display: inline-block;
+            margin-bottom: 30px;
+            padding: 12px 24px;
+            background-color: #e50914;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .volver-btn:hover {
+            background-color: #b2070f;
         }
 
         .pelicula-detalle {
             display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 30px;
+            grid-template-columns: minmax(300px, 1fr) 2fr;
+            gap: 40px;
             background-color: #1a1a1a;
-            padding: 20px;
-            border-radius: 8px;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .poster {
+            width: 100%;
         }
 
         .poster img {
             width: 100%;
+            height: auto;
             border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .info {
+            padding-right: 20px;
         }
 
         .info h1 {
-            margin-top: 0;
+            margin: 0 0 20px 0;
+            font-size: 2.5em;
+            color: #ffffff;
+        }
+
+        .info p {
+            margin: 15px 0;
+            line-height: 1.6;
+            font-size: 1.1em;
+        }
+
+        .info strong {
+            color: #e50914;
+            font-weight: bold;
         }
 
         .like-container {
-            margin-top: 20px;
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
         .like-btn {
             background: none;
             border: none;
             color: #666;
-            font-size: 1.5em;
+            font-size: 1.8em;
             cursor: pointer;
+            transition: color 0.3s ease;
+            padding: 10px;
+        }
+
+        .like-btn:hover {
+            color: #e50914;
         }
 
         .like-btn.liked {
             color: #e50914;
         }
 
-        .volver-btn {
-            display: inline-block;
-            margin-bottom: 20px;
-            padding: 10px 20px;
-            background-color: #e50914;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
+        .like-count {
+            font-size: 1.2em;
+            color: #ffffff;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .pelicula-detalle {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .poster {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .info {
+                padding-right: 0;
+            }
+
+            .info h1 {
+                font-size: 2em;
+            }
         }
     </style>
 </head>
@@ -104,7 +169,7 @@ if (!$pelicula) {
         
         <div class="pelicula-detalle">
             <div class="poster">
-                <img src="<?php echo htmlspecialchars($pelicula['poster_peli']); ?>" 
+                <img src="../<?php echo htmlspecialchars($pelicula['poster_peli']); ?>" 
                      alt="<?php echo htmlspecialchars($pelicula['titulo_peli']); ?>">
             </div>
             <div class="info">

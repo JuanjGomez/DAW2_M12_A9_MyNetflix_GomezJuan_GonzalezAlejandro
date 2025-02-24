@@ -11,6 +11,31 @@ if (isset($_SESSION['successCrear']) && $_SESSION['successCrear']) {
 
 require_once 'database/conexion.php';
 
+
+
+
+
+
+
+try {
+    $query = "SELECT p.titulo_peli, p.poster_peli, COUNT(l.id_likes) AS total_likes 
+              FROM tbl_peliculas p
+              LEFT JOIN tbl_likes l ON p.id_peli = l.id_peli
+              GROUP BY p.id_peli
+              ORDER BY total_likes DESC
+              LIMIT 5";
+
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
+    $peliculasDestacadas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Error: " . $e->getMessage();
+}
+
+
+
+
+
 // Verificar si el usuario está logueado
 $idUsuario = isset($_SESSION['idUser']) ? $_SESSION['idUser'] : 0;
 
@@ -73,20 +98,67 @@ foreach ($peliculas as $pelicula) {
         }
 
         header {
-            background-color: #000;
+            background-color: #D60404;
             padding: 1rem;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
+            position: relative;
         }
 
         #logoCenter {
-            flex: 1;
+            position: relative;
             text-align: center;
         }
 
         #logoCenter img {
-            height: 50px;
+            height: 100px;
+            object-fit: cover;
+            margin: 0;
+        }
+
+        .user-dropdown {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+        }
+
+        .dropbtn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .dropdown-content {
+            right: 0;
+            display: none;
+            position: absolute;
+            background-color: #1a1a1a;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 101;
+            border-radius: 4px;
+            top: 100%;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #2a2a2a;
+        }
+
+        .user-dropdown:hover .dropdown-content {
+            display: block;
         }
 
         .peliculas-grid {
@@ -116,12 +188,39 @@ foreach ($peliculas as $pelicula) {
         }
 
         .categoria-container {
-            margin: 20px 0;
+            margin: 40px 20px;
+        }
+
+        .categoria-titulo-container {
+            background-color: #D60404;
+            padding: 10px 20px;
+            position: relative;
+            text-align: center;
+            border-radius: 4px;
+        }
+
+        .categoria-titulo-container::before {
+            content: '';
+            position: absolute;
+            background-color: #D60404;
+            width: calc(100% - 40px);
+            height: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+            z-index: -1;
+            border-radius: 4px;
         }
 
         .categoria-titulo {
-            color: white;
-            padding: 0 20px;
+            color: #000000;
+            margin: 0;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .peliculas-grid {
+            margin-top: 20px;
         }
 
         .filtros-container {
@@ -162,6 +261,66 @@ foreach ($peliculas as $pelicula) {
             transform: scale(1.05);
             transition: transform 0.3s ease;
         }
+
+        .destacadas-container {
+    padding: 20px;
+    text-align: center;
+}
+
+.peliculas-destacadas {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px;
+    justify-content: center;
+}
+
+.pelicula-card {
+    background-color: #222;
+    color: white;
+    border-radius: 10px;
+    padding: 15px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 350px; /* Altura mínima para todas las tarjetas */
+}
+
+.pelicula-card img {
+    width: 100%;
+    border-radius: 10px;
+    height: 250px; /* Altura fija para la imagen */
+    object-fit: cover; /* Asegura que la imagen cubra el espacio sin distorsionarse */
+}
+
+.pelicula-card h3 {
+    margin: 10px 0;
+    font-size: 16px; /* Tamaño de fuente reducido */
+    height: 50px; /* Altura fija para el título */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Evita que el texto desborde */
+    text-overflow: ellipsis; /* Agrega puntos suspensivos si el texto es demasiado largo */
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+}
+
+.pelicula-card p {
+    font-size: 12px; /* Tamaño de fuente reducido */
+    color: #bbb;
+}
+
+.pelicula-card span {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 14px; /* Tamaño de fuente reducido */
+}
+
     </style>
 </head>
 <body>
@@ -207,17 +366,55 @@ foreach ($peliculas as $pelicula) {
         </form>
     </div>
 
+    <div class="destacadas-container">
+    <h2>Películas más destacadas</h2>
+    <div class="peliculas-destacadas">
+        <?php foreach ($peliculasDestacadas as $pelicula): ?>
+            <div class="pelicula-card">
+                <h3>
+                    <?php
+                    $titulo = $pelicula['titulo_peli'];
+                    if (mb_strlen($titulo) > 25) {
+                        echo mb_substr($titulo, 0, 25) . '...'; // Limita a 28 caracteres
+                    } else {
+                        echo $titulo; // Muestra el título completo
+                    }
+                    ?>
+                </h3>
+                <img src="<?php echo $pelicula['poster_peli']; ?>" alt="<?php echo $pelicula['titulo_peli']; ?>">
+                <span>👍 <?php echo $pelicula['total_likes']; ?> likes</span>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+
+
     <main>
         <?php foreach ($peliculasPorCategoria as $categoria => $peliculas) : ?>
         <div class="categoria-container">
-            <h2 class="categoria-titulo"><?php echo htmlspecialchars($categoria); ?></h2>
+            <div class="categoria-titulo-container">
+                <h2 class="categoria-titulo"><?php echo htmlspecialchars($categoria); ?></h2>
+            </div>
             <div class="peliculas-grid">
                 <?php foreach ($peliculas as $pelicula) : ?>
                 <div class="pelicula">
-                    <a href="view/detalle_pelicula.php?id=<?php echo $pelicula['id_peli']; ?>" class="pelicula-link">
+                    <?php if (isset($_SESSION['idUser']) && $_SESSION['idUser'] != null): ?>
+                        <a href="view/detalle_pelicula.php?id=<?php echo $pelicula['id_peli']; ?>" class="pelicula-link">
+                    <?php else: ?>
+                        <a href="view/formRegistro.php" class="pelicula-link">
+                    <?php endif; ?>
                         <img src="<?php echo htmlspecialchars($pelicula['poster_peli']); ?>" 
                              alt="<?php echo htmlspecialchars($pelicula['titulo_peli']); ?>">
-                        <h3><?php echo htmlspecialchars($pelicula['titulo_peli']); ?></h3>
+                             <h3>
+                    <?php
+                    $titulo = $pelicula['titulo_peli'];
+                    if (mb_strlen($titulo) > 15) {
+                        echo mb_substr($titulo, 0, 15) . '...'; // Limita a 28 caracteres
+                    } else {
+                        echo $titulo; // Muestra el título completo
+                    }
+                    ?>
+                </h3>
                     </a>
                     <div class="like-container">
                         <button class="like-btn <?php echo $pelicula['user_like'] ? 'liked' : ''; ?>" 

@@ -23,24 +23,41 @@ h1{
     font-size: 48px;
     text-align: center;
 }
-#botones{
+#botones {
     display: flex;
+    justify-content: center;
     margin-top: 20px;
 }
+
+#botones a {
+    margin: 0 10px;
+}
+
 table{
     width: 90%;
     margin: 20px auto;
     border-collapse: collapse;
     background-color: #111;
 }
+
 table th, table td{
     border: 1px solid white;
     padding: 10px;
     text-align: center;
 }
+
+.divCentrarBotones{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    align-items: center;
+    width: 100%;
+}
+
 .divCentrar{
     display: flex;
     justify-content: center;
+    margin-top: 20px;
     align-items: center;
     width: 100%;
 }
@@ -106,4 +123,74 @@ input, select, option{
 
 label {
     margin-right: 10px;
+}
+
+#sinopsis {
+    text-align: justify;
+    font-size: 15px;
+    font-family: 'Times New Roman', Times, serif;
+    max-height: 80px; /* Ajusta la altura máxima según sea necesario */
+    overflow: hidden; /* Oculta el desbordamiento */
+    text-overflow: ellipsis; /* Muestra "..." si el texto es demasiado largo */
+    -webkit-line-clamp: 3; /* Número de líneas a mostrar */
+}
+
+@media (max-width: 430px) {
+    .header {
+        background-color: #D60404;
+    }
+
+    img {
+        height: 50px;
+    }
+
+    h1 {
+        font-size: 30px;
+        padding-top: 10px;
+    }
+
+    .divCentrarBotones {
+        display: flex;
+    }
+
+    .divCentrar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-top: 15px;
+    }
+
+    #navbar {
+        width: 90%;
+    }
+    
+    table {
+        width: 95%;
+    }
+
+    th, td {
+        font-size: 10px;
+        padding: 5px;
+    }
+
+    #sinopsis, #director, #fechaEstreno {
+        display: none;
+    }
+
+    label {
+        font-size: 12px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+
+    #botones, a, button {
+        padding: 5px 10px !important; /* Reduce el padding */
+        font-size: 14px !important; /* Reduce el tamaño de la fuente */
+    }
+
+    td img {
+        height: 50px !important;
+        width: 50px !important;
+    }
 }

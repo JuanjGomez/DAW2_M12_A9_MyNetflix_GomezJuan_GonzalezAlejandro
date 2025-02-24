@@ -14,33 +14,11 @@ header {
     align-items: center;
 }
 
-img {
+#logoCenter{
     height: 100px;
     object-fit: cover;
     margin: 0 auto;
     display: block;
-}
-
-h1 {
-    padding-top: 10px;
-    font-size: 48px;
-    text-align: center;
-    color: white !important;
-}
-
-table{
-    width: 90%;
-    margin: 20px auto;
-    border-collapse: collapse;
-    background-color: #111;
-    text-align: center;
-}
-
-th, td{
-    border: 1px solid white !important;
-    padding: 10px;
-    text-align: center;
-    color: white;
 }
 
 .user-dropdown {
@@ -86,50 +64,4 @@ th, td{
 
 .user-dropdown:hover .dropdown-content {
     display: block;
-}
-
-.divVolver {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-@media (max-width: 430px) {
-
-    header {
-        background-color: #D60404;
-    }
-
-    img {
-        height: 50px;
-    }
-    
-    h1 {
-        font-size: 30px;
-        padding-top: 10px;
-        padding-bottom: 10px;
-    }
-
-    table {
-        width: 95%;
-    }
-
-    th, td {
-        font-size: 10px;
-    }
-    
-    .hidden {
-        display: none;
-    }
-
-    #botones, a, button {
-        padding: 3px 6px !important; /* Reduce el padding */
-        font-size: 14px !important; /* Reduce el tamaño de la fuente */
-    }
-
-    .divVolver {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
 }

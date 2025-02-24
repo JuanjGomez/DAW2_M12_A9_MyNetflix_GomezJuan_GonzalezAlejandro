@@ -49,8 +49,10 @@ $roles = $stmt_roles->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/admin.css">
+    <link rel="stylesheet" href="../styles/gestionarUsuarios.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>Gestionar Usuarios</title>
 </head>
 <body>
@@ -65,31 +67,42 @@ $roles = $stmt_roles->fetchAll(PDO::FETCH_ASSOC);
         <div id="logoCenter">
             <img src="../img/logoN.png">
         </div>
+        <div class="user-dropdown">
+            <button class="dropbtn">
+                <i class="fas fa-user"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="../backend/cerrarSesion.php">Cerrar Sesión</a>
+            </div>
+        </div>
     </header>
     <div class="container">
         <h1>Gestionar Usuarios</h1>
-        <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#crearUsuarioModal">Crear Nuevo Usuario</button>
-        <table class="table table-bordered">
+        <div class="divVolver">
+            <a href="admin.php"><button class="btn btn-danger">Volver</button></a>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearUsuarioModal">Crear Nuevo Usuario</button>
+        </div>
+        <table>
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th class="hidden">ID</th>
                     <th>Username</th>
                     <th>Email</th>
                     <th>Activo</th>
-                    <th>Rol</th>
+                    <th class="hidden">Rol</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($usuarios as $row): ?>
                     <tr>
-                        <td><?php echo $row['id_u']; ?></td>
+                        <td class="hidden"><?php echo $row['id_u']; ?></td>
                         <td><?php echo $row['username_u']; ?></td>
                         <td><?php echo $row['email_u']; ?></td>
                         <td><?php echo $row['activo_u'] ? 'Sí' : 'No'; ?></td>
-                        <td><?php echo $row['nombre_rol']; ?></td>
+                        <td class="hidden"><?php echo $row['nombre_rol']; ?></td>
                         <td>
-                            <a href="editarUsuario.php?id=<?php echo $row['id_u']; ?>" class="btn btn-warning">Editar</a>
+                            <a href="editarUsuario.php?id=<?php echo $row['id_u']; ?>" class="btn btn-warning">Editar</a><p></p>
                             <a href="../backend/eliminarUser.php?id=<?php echo $row['id_u']; ?>" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar este usuario?');">Eliminar</a>
                         </td>
                     </tr>

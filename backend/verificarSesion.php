@@ -33,6 +33,7 @@
             $_SESSION['idUser'] = $user['id_u'];
             $_SESSION['username'] = $user['username_u'];
             $_SESSION['rol'] = $user['nombre_rol'];
+            $_SESSION['actividad'] = $user['activo_u'];
             $_SESSION['successLogin'] = true; // SweetAlert
 
             if($user['nombre_rol'] === 'administrador'){

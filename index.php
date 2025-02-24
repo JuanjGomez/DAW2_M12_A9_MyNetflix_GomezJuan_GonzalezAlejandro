@@ -111,23 +111,12 @@ foreach ($peliculas as $pelicula) {
             <h2 class="categoria-titulo"><?php echo htmlspecialchars($categoria); ?></h2>
             <div class="peliculas-grid">
                 <?php foreach ($peliculas as $pelicula): ?>
-                    <?php if(isset($_SESSION['actividad']) && $_SESSION['actividad'] == 1): ?>
-                        <a href="view/verPelicula.php?idPeli=<?php echo $pelicula['id_peli']; ?>">
-                            <div class="pelicula">
-                                <img src="<?php echo htmlspecialchars($pelicula['poster_peli']); ?>" 
-                                    alt="<?php echo htmlspecialchars($pelicula['titulo_peli']); ?>">
-                                <h3><?php echo htmlspecialchars($pelicula['titulo_peli']); ?></h3>
-                            </div>
-                        </a>
-                    <?php else: ?>
-                        <a href="view/formSesion.php">
-                            <div class="pelicula">
-                                <img src="<?php echo htmlspecialchars($pelicula['poster_peli']); ?>" 
-                                    alt="<?php echo htmlspecialchars($pelicula['titulo_peli']); ?>">
-                                <h3><?php echo htmlspecialchars($pelicula['titulo_peli']); ?></h3>
-                            </div>
-                        </a>
-                    <?php endif; ?>
+                    <a href="view/verPelicula.php?idPeli=<?php echo $pelicula['id_peli']; ?>">
+                        <div class="pelicula">
+                            <img src="<?php echo htmlspecialchars($pelicula['poster_peli']); ?>" alt="<?php echo htmlspecialchars($pelicula['titulo_peli']); ?>">
+                            <h3><?php echo htmlspecialchars($pelicula['titulo_peli']); ?></h3>
+                        </div>
+                    </a>
                 <?php endforeach; ?>
             </div>
         </div>

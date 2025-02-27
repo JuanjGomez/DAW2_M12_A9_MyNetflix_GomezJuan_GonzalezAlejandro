@@ -1,6 +1,6 @@
 // Formulario -------------------------------------------------------------------------------------------------------
 // Verificar Username
-document.getElementById("username").onblur = function () {
+document.getElementById("username").oninput = function () {
     let username = this.value.trim()
     let errorUsername = ""
     
@@ -23,7 +23,7 @@ document.getElementById("username").onblur = function () {
     verificarForm()
 }
 // Verificar contrasena
-document.getElementById("pwd").onblur = function () {
+document.getElementById("pwd").oninput = function () {
     let pwd = this.value.trim()
     let errorPwd = ""
 

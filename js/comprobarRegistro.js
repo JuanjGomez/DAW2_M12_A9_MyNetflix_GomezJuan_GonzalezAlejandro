@@ -1,6 +1,6 @@
 // Formulario -----------------------------------------------------------------------------------
 // Verificar username
-document.getElementById('username').onblur = function() {
+document.getElementById('username').oninput = function() {
     let username = this.value.trim()
     let errorUsername = ""
 
@@ -25,7 +25,7 @@ document.getElementById('username').onblur = function() {
     verificarForm()
 }
 // Verificar email
-document.getElementById('email').onblur = function() {
+document.getElementById('email').oninput = function() {
     let email = this.value.trim()
     let errorEmail = ""
 
@@ -47,7 +47,7 @@ document.getElementById('email').onblur = function() {
     verificarForm()
 }
 // Veridicar Contrasena
-document.getElementById("pwd").onblur = function() {
+document.getElementById("pwd").oninput = function() {
     let pwd = this.value.trim()
     let errorPwd = ""
 
@@ -72,7 +72,7 @@ document.getElementById("pwd").onblur = function() {
     verificarForm()
 } 
 // Verificar si las contrasenas son iguales
-document.getElementById('rPwd').onblur = function() {
+document.getElementById('rPwd').oninput = function() {
     let pwd = document.getElementById('pwd').value
     let rPwd = this.value.trim()
     let errorRPwd = ""

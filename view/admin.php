@@ -43,7 +43,7 @@
             <div class="col-md-3">
                 <div class="container_img grow">
                     <a href="gestionarUsuarios.php" class="botonImg">
-                        <img src="../img/solicitudes.png" alt="Ir a Gestionar Usuarios">
+                        <img src="../img/icon-users.jpg" alt="Ir a Gestionar Usuarios">
                     </a>
                 </div>
                 <p>Gestionar Usuarios</p>

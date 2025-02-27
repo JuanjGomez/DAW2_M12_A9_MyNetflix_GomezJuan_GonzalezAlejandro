@@ -12,17 +12,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     $idUsuario = $_POST['id'];
 
     try {
-        // Actualizar el estado del usuario a activo
-        $query = "UPDATE tbl_usuarios SET activo_u = TRUE WHERE id_u = :id";
-        $stmt = $conn->prepare($query);
-        $stmt->bindParam(':id', $idUsuario, PDO::PARAM_INT);
+        $conn->beginTransaction();
 
-        if ($stmt->execute()) {
+        // Actualizar el estado de la solicitud a aprobado
+        $querySolicitud = "UPDATE tbl_solicitudes_registro SET estado = 'aprobado' WHERE id_u = :id AND estado = 'pendiente'";
+        $stmtSolicitud = $conn->prepare($querySolicitud);
+        $stmtSolicitud->bindParam(':id', $idUsuario, PDO::PARAM_INT);
+        
+        // Actualizar el estado del usuario a activo
+        $queryUsuario = "UPDATE tbl_usuarios SET activo_u = TRUE WHERE id_u = :id";
+        $stmtUsuario = $conn->prepare($queryUsuario);
+        $stmtUsuario->bindParam(':id', $idUsuario, PDO::PARAM_INT);
+
+        if ($stmtUsuario->execute() && $stmtSolicitud->execute()) {
+            $conn->commit();
             echo json_encode(['success' => true]);
         } else {
+            $conn->rollBack();
             echo json_encode(['success' => false, 'error' => 'Error al actualizar el usuario']);
         }
     } catch (PDOException $e) {
+        $conn->rollBack();
         echo json_encode(['success' => false, 'error' => $e->getMessage()]);
     }
 } else {

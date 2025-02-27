@@ -1,11 +1,8 @@
-/* Estilos generales */
 body {
     background-color: #000000 !important;
     align-items: center;
     justify-content: center;
     margin: 0;
-    font-family: Arial, sans-serif;
-    color: #ffffff;
 }
 
 header {
@@ -13,7 +10,53 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 0;
+    padding: 10px;
+    justify-content: space-between;
+}
+
+.user-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: transparent;
+    color: white;
+    padding: 10px;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropbtn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 5px;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.user-dropdown:hover .dropdown-content {
+    display: block;
 }
 
 #logoCenter img {
@@ -36,35 +79,21 @@ h1 {
     margin-bottom: 20px;
 }
 
-/* Estilos de la tabla */
-.table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+table {
+    width: 95%;
+    margin: 0 auto;
+    text-align: center; 
+    margin-bottom: 20px;
+    border-color: white;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 10px;
+    border-collapse: collapse !important;
 }
 
-.table th,
-.table td {
-    border: 1px solid #444;
+th, td {
     padding: 10px;
-    text-align: left;
-}
-
-.table th {
-    background-color: #D60404;
-    color: #ffffff;
-}
-
-.table tbody tr:nth-child(odd) {
-    background-color: #333;
-}
-
-.table tbody tr:nth-child(even) {
-    background-color: #444;
-}
-
-.table tbody tr:hover {
-    background-color: #555;
+    border: 1px solid #444;
 }
 
 /* Estilos para mensajes de alerta */
@@ -87,10 +116,11 @@ h1 {
 
 /* Estilos para botones */
 .btn {
-    padding: 8px 16px;
-    border-radius: 5px;
+    padding: 6px 12px;
+    border-radius: 4px;
     text-decoration: none;
     transition: background-color 0.3s ease;
+    font-size: 14px;
 }
 
 .btn-primary {
@@ -121,4 +151,93 @@ h1 {
 
 .btn-danger:hover {
     background-color: #c82333;
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto 20px auto;
+}
+
+#buscador {
+    flex: 1;
+    padding: 6px 10px;
+    border-radius: 4px;
+    border: 1px solid #444;
+    background-color: #2a2a2a;
+    color: white;
+    font-size: 14px;
+}
+
+#buscador::placeholder {
+    color: #888;
+    font-size: 14px;
+}
+
+#resetFiltros {
+    padding: 6px 12px;
+    background-color: #6c757d;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+#resetFiltros:hover {
+    background-color: #5a6268;
+}
+
+@media (max-width: 430px) {
+    .container {
+        width: 95%;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    table {
+        width: 95%;
+    }
+
+    th, td {
+        font-size: 12px;
+    }
+
+    .btn {
+        font-size: 8px;
+        padding: 2px 4px;
+    }
+
+    /* Asegurarnos que los botones de éxito y peligro también se reduzcan */
+    .btn-success,
+    .btn-danger {
+        font-size: 8px;
+        padding: 2px 4px;
+    }
+
+    .input-group {
+        max-width: 300px;
+        padding: 0 10px;
+    }
+
+    #buscador {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+
+    #resetFiltros {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
+
+    #buscador::placeholder {
+        font-size: 12px;
+    }
 }

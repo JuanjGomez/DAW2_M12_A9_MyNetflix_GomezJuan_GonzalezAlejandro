@@ -10,12 +10,11 @@ if (!isset($_SESSION['idUser']) || $_SESSION['rol'] !== 'administrador') {
 }
 
 // Obtener usuarios no activos
-$query = "
-    SELECT u.id_u, u.username_u, u.email_u, u.activo_u, r.nombre_rol 
-    FROM tbl_usuarios u
-    JOIN tbl_roles r ON u.id_rol = r.id_rol
-    WHERE u.activo_u = FALSE
-";
+$query = "SELECT u.id_u, u.username_u, u.email_u, u.activo_u, r.nombre_rol, s.id_soli 
+        FROM tbl_usuarios u
+        INNER JOIN tbl_roles r ON u.id_rol = r.id_rol 
+        INNER JOIN tbl_solicitudes_registro s ON u.id_u = s.id_u
+        WHERE s.estado = 'pendiente'";
 $stmt = $conn->query($query);
 $usuarios = $stmt->fetchAll();
 ?>
@@ -25,6 +24,8 @@ $usuarios = $stmt->fetchAll();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/solicitudes.css"> <!-- Enlace al archivo CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <title>Solicitudes de Registro</title>
 </head>
@@ -41,77 +42,46 @@ $usuarios = $stmt->fetchAll();
         <div id="logoCenter">
             <img src="../img/logoN.png" alt="Logo">
         </div>
+        <div class="user-dropdown">
+            <button class="dropbtn">
+                <i class="fas fa-user"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="../backend/cerrarSesion.php">Cerrar Sesión</a>
+            </div>
+        </div>
     </header>
 
     <div class="container">
         <h1>Solicitudes de Registro Pendientes</h1>
-        <table class="table table-bordered">
+        
+        <!-- Añadir el div de filtros -->
+        <div class="filtros-container">
+            <a href="admin.php"><button class="btn btn-danger">Volver</button></a><br><br>
+            <div class="input-group mb-3">
+                <input type="text" id="buscador" class="form-control" placeholder="Buscar por nombre de usuario...">
+                <button class="btn btn-secondary" id="resetFiltros">Restablecer</button>
+            </div>
+        </div>
+
+        <table>
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nombre de Usuario</th>
                     <th>Email</th>
-                    <th>Rol</th>
-                    <th>Estado</th>
+                    <th class="hidden">Rol</th>
+                    <th class="hidden">Estado</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody>
-                <?php if (count($usuarios) > 0): ?>
-                    <?php foreach ($usuarios as $usuario): ?>
-                        <tr id="usuario-<?= htmlspecialchars($usuario['id_u']) ?>">
-                            <td><?= htmlspecialchars($usuario['id_u']) ?></td>
-                            <td><?= htmlspecialchars($usuario['username_u']) ?></td>
-                            <td><?= htmlspecialchars($usuario['email_u']) ?></td>
-                            <td><?= htmlspecialchars($usuario['nombre_rol']) ?></td>
-                            <td><?= $usuario['activo_u'] ? 'Activo' : 'No Activo' ?></td>
-                            <td>
-                                <button class="btn btn-success aceptar-btn" data-id="<?= htmlspecialchars($usuario['id_u']) ?>">Aceptar</button>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="6" style="text-align: center;">No hay solicitudes pendientes.</td>
-                    </tr>
-                <?php endif; ?>
+            <tbody id="tablaSolicitudes">
+                <!-- El contenido se cargará dinámicamente -->
             </tbody>
         </table>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const aceptarBtns = document.querySelectorAll('.aceptar-btn');
-
-            aceptarBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const idUsuario = this.getAttribute('data-id');
-
-                    fetch('../backend/proc_solicitud.php', { // Ruta actualizada
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: `id=${idUsuario}`
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            const filaUsuario = document.getElementById(`usuario-${idUsuario}`);
-                            filaUsuario.querySelector('td:nth-child(5)').textContent = 'Activo';
-                            btn.disabled = true;
-                            btn.textContent = 'Aceptado';
-                        } else {
-                            alert('Error al aceptar el usuario: ' + data.error);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-                });
-            });
-        });
-    </script>
+    <script src="../js/gestionSolicitudes.js"></script>
 </body>
 </html>

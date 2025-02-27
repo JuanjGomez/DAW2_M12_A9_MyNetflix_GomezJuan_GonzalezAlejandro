@@ -80,7 +80,7 @@ $roles = $stmt_roles->fetchAll(PDO::FETCH_ASSOC);
         <h1>Gestionar Usuarios</h1>
         <div class="divVolver">
             <a href="admin.php"><button class="btn btn-danger">Volver</button></a>
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearUsuarioModal">Crear Nuevo Usuario</button>
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearUsuarioModal">Crear Nuevo Usuario</button>
         </div>
         <table>
             <thead>

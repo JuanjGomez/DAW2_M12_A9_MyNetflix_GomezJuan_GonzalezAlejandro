@@ -8,12 +8,23 @@ let categoriasSelect = document.getElementById("categorias")
 
 
 function cargarPeliculas(filtro = "", orden = "titulo", categoria = "") {
-    fetch(`../backend/fecthPeliculas.php?filtro=${filtro}&orden=${orden}&categoria=${categoria}`)
-        .then(response => response.json())
+    fetch(`../backend/fecthPeliculas.php?filtro=${encodeURIComponent(filtro)}&orden=${encodeURIComponent(orden)}&categoria=${encodeURIComponent(categoria)}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error en la respuesta del servidor');
+            }
+            return response.json();
+        })
         .then(peliculas => {
-            tablaPeliculas.innerHTML = ""
+            if (!Array.isArray(peliculas)) {
+                if (peliculas.error) {
+                    throw new Error(peliculas.error);
+                }
+                throw new Error('Formato de respuesta inválido');
+            }
+
+            tablaPeliculas.innerHTML = "";
             peliculas.forEach(pelicula => {
-                const categoriasHTML = pelicula.generos
                 const fila = `
                     <tr>
                         <td>${pelicula.titulo_peli}</td>
@@ -21,8 +32,8 @@ function cargarPeliculas(filtro = "", orden = "titulo", categoria = "") {
                         <td id="fechaEstreno">${pelicula.fecha_estreno_peli}</td>
                         <td id="sinopsis">${pelicula.descripcion_peli}</td>
                         <td id="director">${pelicula.director_peli}</td>
-                        <td>${pelicula.likes_peli}</td>
-                        <td>${categoriasHTML}</td>
+                        <td>${pelicula.likes_peli || 0}</td>
+                        <td>${pelicula.generos || ''}</td>
                         <td>
                             <form method="POST" action="formPelicula.php">
                                 <input type="hidden" name="idPeli" value="${pelicula.id_peli}">
@@ -30,27 +41,43 @@ function cargarPeliculas(filtro = "", orden = "titulo", categoria = "") {
                             </form><p></p>
                             <button class="btn btn-danger" onclick="confirmarDelete(${pelicula.id_peli})">Eliminar</button>
                         </td>
-                    </tr>`
-                tablaPeliculas.innerHTML += fila
-            })
+                    </tr>`;
+                tablaPeliculas.innerHTML += fila;
+            });
         })
-        .catch(error => console.error("Error al cargar películas:", error))
+        .catch(error => {
+            console.error("Error al cargar películas:", error);
+            tablaPeliculas.innerHTML = `
+                <tr>
+                    <td colspan="8" class="text-center text-danger">
+                        Error al cargar las películas. Por favor, intente de nuevo.
+                    </td>
+                </tr>`;
+        });
 }
-// Llamar a la funcion inmediatamente para cargar las peliculas
-cargarPeliculas()
 
-// Eventos para los filtros
-ordenarSelect.onchange = () => cargarPeliculas(buscadorInput.value, ordenarSelect.value, categoriasSelect.value)
-buscadorInput.oninput = () => cargarPeliculas(buscadorInput.value, ordenarSelect.value, categoriasSelect.value)
-categoriasSelect.onchange = () => cargarPeliculas(buscadorInput.value, ordenarSelect.value, categoriasSelect.value)
+// Event listeners
+ordenarSelect.addEventListener('change', function() {
+    cargarPeliculas(buscadorInput.value, this.value, categoriasSelect.value);
+});
 
-// Evento para el boton "Restablecer filtros"
-resetFiltrosBtn.onclick = () => {
-    buscadorInput.value = ""
-    ordenarSelect.value = ""
-    categoriasSelect.value = ""
-    cargarPeliculas()
-}
+buscadorInput.addEventListener('input', function() {
+    cargarPeliculas(this.value, ordenarSelect.value, categoriasSelect.value);
+});
+
+categoriasSelect.addEventListener('change', function() {
+    cargarPeliculas(buscadorInput.value, ordenarSelect.value, this.value);
+});
+
+resetFiltrosBtn.addEventListener('click', function() {
+    buscadorInput.value = "";
+    ordenarSelect.value = "";
+    categoriasSelect.value = "";
+    cargarPeliculas();
+});
+
+// Cargar películas inicialmente
+cargarPeliculas();
 
 // ---------------------------------------------------------------------------------------------------------------------
 

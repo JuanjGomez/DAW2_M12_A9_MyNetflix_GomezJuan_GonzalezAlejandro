@@ -78,9 +78,20 @@ $roles = $stmt_roles->fetchAll(PDO::FETCH_ASSOC);
     </header>
     <div class="container">
         <h1>Gestionar Usuarios</h1>
+        <div class="filtros-container">
+            <div class="input-group mb-3">
+                <select id="filtroEstado" class="form-select">
+                    <option value="todos">Todos los usuarios</option>
+                    <option value="activos">Usuarios activos</option>
+                    <option value="inactivos">Usuarios inactivos</option>
+                </select>
+                <input type="text" id="buscador" class="form-control" placeholder="Buscar por nombre de usuario...">
+                <button class="btn btn-secondary" id="resetFiltros">Restablecer</button>
+            </div>
+        </div>
         <div class="divVolver">
             <a href="admin.php"><button class="btn btn-danger">Volver</button></a>
-        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearUsuarioModal">Crear Nuevo Usuario</button>
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#crearUsuarioModal">Crear Nuevo Usuario</button>
         </div>
         <table>
             <thead>
@@ -93,20 +104,8 @@ $roles = $stmt_roles->fetchAll(PDO::FETCH_ASSOC);
                     <th>Acciones</th>
                 </tr>
             </thead>
-            <tbody>
-                <?php foreach ($usuarios as $row): ?>
-                    <tr>
-                        <td class="hidden"><?php echo $row['id_u']; ?></td>
-                        <td><?php echo $row['username_u']; ?></td>
-                        <td><?php echo $row['email_u']; ?></td>
-                        <td><?php echo $row['activo_u'] ? 'Sí' : 'No'; ?></td>
-                        <td class="hidden"><?php echo $row['nombre_rol']; ?></td>
-                        <td>
-                            <a href="editarUsuario.php?id=<?php echo $row['id_u']; ?>" class="btn btn-warning">Editar</a><p></p>
-                            <a href="../backend/eliminarUser.php?id=<?php echo $row['id_u']; ?>" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar este usuario?');">Eliminar</a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
+            <tbody id="tablaUsuarios">
+                <!-- El contenido se cargará dinámicamente -->
             </tbody>
         </table>
     </div>
@@ -153,5 +152,6 @@ $roles = $stmt_roles->fetchAll(PDO::FETCH_ASSOC);
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/gestionUsuarios.js"></script>
 </body>
 </html>

@@ -13,6 +13,10 @@
         unset($_SESSION['rol']);
     }
 
+    if(isset($_SESSION['actividad']) && $_SESSION['actividad']){
+        unset($_SESSION['actividad']);
+    }
+
     if(isset($_SESSION['username']) && $_SESSION['username']){
         unset($_SESSION['username']);
     }

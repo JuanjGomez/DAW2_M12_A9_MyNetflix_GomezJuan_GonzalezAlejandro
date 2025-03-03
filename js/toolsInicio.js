@@ -168,10 +168,11 @@ document.addEventListener('DOMContentLoaded', function () {
         likeButtons.forEach(button => {
             button.addEventListener('click', async function () {
                 try {
-                    // Primero verificamos la sesión y el estado de actividad
                     const sessionResponse = await fetch('backend/checkSession.php');
                     const sessionData = await sessionResponse.json();
                     
+                    console.log('Datos de sesión:', sessionData);
+
                     if (!sessionData.isLoggedIn) {
                         Swal.fire({
                             title: 'Error',
@@ -181,8 +182,50 @@ document.addEventListener('DOMContentLoaded', function () {
                         return;
                     }
 
-                    // Verificar si la cuenta está activa
-                    if (sessionData.activo !== 1) {
+                    // Si la cuenta está activa y la última solicitud es 'aprobado', permitir like
+                    if (sessionData.activo === '1' && 
+                        (sessionData.estadoSolicitud === 'aprobado' || sessionData.estadoSolicitud === 'none')) {
+                        // Proceder con el like
+                        const peliId = this.getAttribute('data-peli-id');
+                        const isLiked = this.classList.contains('liked');
+                        const action = isLiked ? 'unlike' : 'like';
+                        const likeCount = this.nextElementSibling;
+
+                        const response = await fetch('backend/like.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: `peliId=${peliId}&action=${action}`
+                        });
+
+                        const data = await response.json();
+                        
+                        if (data.success) {
+                            this.classList.toggle('liked');
+                            likeCount.textContent = data.like_count;
+                        } else {
+                            Swal.fire({
+                                title: 'Error',
+                                text: data.error || 'Error al procesar la solicitud',
+                                icon: 'error'
+                            });
+                        }
+                        return;
+                    }
+
+                    // Si hay una solicitud pendiente
+                    if (sessionData.estadoSolicitud === 'pendiente') {
+                        Swal.fire({
+                            title: 'Solicitud en Revisión',
+                            text: 'Tu solicitud está en proceso de revisión.',
+                            icon: 'info'
+                        });
+                        return;
+                    }
+
+                    // Si la cuenta está inactiva o la última solicitud fue rechazada
+                    if (sessionData.activo === '0' || sessionData.estadoSolicitud === 'rechazado') {
                         Swal.fire({
                             title: 'Cuenta Desactivada',
                             text: 'Tu cuenta está desactivada. ¿Deseas enviar una solicitud de reactivación?',
@@ -192,37 +235,8 @@ document.addEventListener('DOMContentLoaded', function () {
                             cancelButtonText: 'No, cancelar'
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                // Enviar solicitud de reactivación
                                 enviarSolicitudReactivacion();
                             }
-                        });
-                        return;
-                    }
-                    
-                    // Si la cuenta está activa, proceder con el like
-                    const peliId = this.getAttribute('data-peli-id');
-                    const isLiked = this.classList.contains('liked');
-                    const action = isLiked ? 'unlike' : 'like';
-                    const likeCount = this.nextElementSibling;
-
-                    const response = await fetch('backend/like.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: `peliId=${peliId}&action=${action}`
-                    });
-
-                    const data = await response.json();
-                    
-                    if (data.success) {
-                        this.classList.toggle('liked');
-                        likeCount.textContent = data.like_count;
-                    } else {
-                        Swal.fire({
-                            title: 'Error',
-                            text: data.error || 'Error al procesar la solicitud',
-                            icon: 'error'
                         });
                     }
                 } catch (error) {
@@ -250,6 +264,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     title: 'Solicitud Enviada',
                     text: 'Tu solicitud de reactivación ha sido enviada. Te contactaremos pronto.',
                     icon: 'success'
+                });
+            } else if (data.error === 'pending') {
+                Swal.fire({
+                    title: 'Solicitud en Proceso',
+                    text: data.message,
+                    icon: 'info'
                 });
             } else {
                 Swal.fire({

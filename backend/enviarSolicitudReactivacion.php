@@ -12,30 +12,35 @@ if (!isset($_SESSION['idUser'])) {
 }
 
 try {
-    // Verificar si ya existe una solicitud pendiente
-    $checkQuery = "SELECT id_solicitud FROM tbl_solicitudes_reactivacion 
-                  WHERE id_u = :idUser AND estado = 'pendiente'";
+    // Verificar el estado de la solicitud actual
+    $checkQuery = "SELECT estado 
+                  FROM tbl_solicitudes_registro 
+                  WHERE id_u = :idUser";
     $checkStmt = $conn->prepare($checkQuery);
     $checkStmt->execute([':idUser' => $_SESSION['idUser']]);
+    $solicitudActual = $checkStmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($checkStmt->rowCount() > 0) {
+    // Si no hay solicitud o la última fue rechazada, crear una nueva
+    if (!$solicitudActual || $solicitudActual['estado'] === 'rechazado') {
+        $query = "INSERT INTO tbl_solicitudes_registro (id_u, estado) 
+                 VALUES (:idUser, 'pendiente')";
+        $stmt = $conn->prepare($query);
+        $stmt->execute([':idUser' => $_SESSION['idUser']]);
+
+        echo json_encode([
+            'success' => true,
+            'message' => 'Solicitud enviada correctamente'
+        ]);
+    } else {
+        // Si hay una solicitud pendiente o aprobada
         echo json_encode([
             'success' => false,
-            'error' => 'Ya tienes una solicitud de reactivación pendiente'
+            'error' => $solicitudActual['estado'],
+            'message' => $solicitudActual['estado'] === 'pendiente' 
+                ? 'Tu solicitud está en proceso de revisión' 
+                : 'Tu cuenta ya está activada'
         ]);
-        exit;
     }
-
-    // Insertar nueva solicitud
-    $query = "INSERT INTO tbl_solicitudes_reactivacion (id_u, fecha_solicitud, estado) 
-              VALUES (:idUser, NOW(), 'pendiente')";
-    $stmt = $conn->prepare($query);
-    $stmt->execute([':idUser' => $_SESSION['idUser']]);
-
-    echo json_encode([
-        'success' => true,
-        'message' => 'Solicitud enviada correctamente'
-    ]);
 
 } catch (PDOException $e) {
     echo json_encode([

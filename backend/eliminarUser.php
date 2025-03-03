@@ -1,29 +1,49 @@
 <?php
 session_start();
 require_once '../database/conexion.php';
+header('Content-Type: application/json');
 
-// Verificación de sesión y permisos
-if (!isset($_SESSION['idUser']) || $_SESSION['rol'] !== 'administrador') {
-    header('Location: ../index.php');
-    exit();
-}
-
-// Verificar si se recibió el parámetro 'id' por GET
-if (isset($_GET['id'])) {
-    $id_u = $_GET['id'];
+try {
+    // Obtener el ID del usuario
+    $datos = json_decode(file_get_contents('php://input'), true);
     
-    // Eliminar el usuario de la base de datos
-    $sql = "DELETE FROM tbl_usuarios WHERE id_u = :id";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':id', $id_u, PDO::PARAM_INT);
-    
-    if ($stmt->execute()) {
-        $_SESSION['mensaje'] = "Usuario eliminado correctamente.";
-    } else {
-        $_SESSION['error'] = "Error al eliminar el usuario.";
+    if (!isset($datos['id_usuario'])) {
+        throw new Exception('ID de usuario no proporcionado');
     }
-}
 
-// Redirigir de vuelta al CRUD de usuarios
-header('Location: ../view/gestionarUsuarios.php');
-exit();
+    $id_usuario = $datos['id_usuario'];
+
+    // Iniciar transacción
+    $conn->beginTransaction();
+
+    try {
+        // 1. Primero eliminar registros en tbl_solicitudes_registro
+        $sql_solicitudes = "DELETE FROM tbl_solicitudes_registro WHERE id_u = :id_usuario";
+        $stmt_solicitudes = $conn->prepare($sql_solicitudes);
+        $stmt_solicitudes->execute([':id_usuario' => $id_usuario]);
+
+        // 2. Finalmente eliminar el usuario
+        $sql_usuario = "DELETE FROM tbl_usuarios WHERE id_u = :id_usuario";
+        $stmt_usuario = $conn->prepare($sql_usuario);
+        $stmt_usuario->execute([':id_usuario' => $id_usuario]);
+
+        // Si todo sale bien, confirmar la transacción
+        $conn->commit();
+
+        echo json_encode([
+            'success' => true,
+            'message' => 'Usuario y sus registros eliminados correctamente'
+        ]);
+
+    } catch (Exception $e) {
+        // Si hay algún error, revertir los cambios
+        $conn->rollBack();
+        throw $e;
+    }
+
+} catch (Exception $e) {
+    echo json_encode([
+        'success' => false,
+        'error' => 'Error al eliminar: ' . $e->getMessage()
+    ]);
+}

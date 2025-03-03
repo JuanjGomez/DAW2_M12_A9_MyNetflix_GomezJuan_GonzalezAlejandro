@@ -1,0 +1,517 @@
+/* Estilos base */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #141414 !important;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: #D60404;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 8px;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+/* Estilos del formulario */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    color: white;
+    margin-bottom: 8px;
+    font-size: 1.2rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    background-color: #333;
+    color: white;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Estilos para los botones */
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* Estilos para las categorías */
+.categorias-container {
+    border: 1px solid #444;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.categoria-item {
+    margin-bottom: 10px;
+    color: white;
+}
+
+/* Estilos para el input file */
+input[type="file"] {
+    display: block;
+    margin-top: 8px;
+    color: white;
+}
+
+/* Media queries para móviles */
+@media (max-width: 430px) {
+    .container {
+        width: 85%;
+        margin: 10px auto;
+        padding: 12px;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+        margin-bottom: 15px;
+    }
+
+    form {
+        gap: 15px;
+    }
+
+    label {
+        font-size: 1rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="date"],
+    textarea {
+        padding: 6px;
+        font-size: 0.9rem;
+    }
+
+    textarea {
+        min-height: 80px;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 10px;
+        font-size: 0.9rem;
+        margin: 5px 0;
+    }
+
+    .categorias-container {
+        padding: 8px;
+    }
+
+    .categoria-item {
+        margin-bottom: 8px;
+    }
+
+    .categoria-item label {
+        font-size: 0.9rem;
+    }
+
+    input[type="file"] {
+        width: 100%;
+        font-size: 0.9rem;
+    }
+
+    /* Ajustes específicos para el título EDITAR PELÍCULA */
+    .titulo-editar {
+        font-size: 1.5rem;
+        margin: 15px 0;
+    }
+
+    /* Mejorar espaciado en móviles */
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    /* Ajustar el botón de volver */
+    .btn-danger {
+        margin-bottom: 15px;
+    }
+}
+
+/* Ajustes adicionales para una mejor experiencia móvil */
+@media (max-width: 320px) {
+    .container {
+        width: 90%;
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="date"],
+    textarea {
+        font-size: 0.85rem;
+    }
+
+    .btn {
+        font-size: 0.85rem;
+    }
+}
+
+img{
+    height: 100px;
+    object-fit: cover;
+    margin: 0px;
+}
+h1{
+    color: #FFFFFF;
+    font-size: 48px;
+    text-align: center;
+}
+#centrarDiv{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+#formSesion{
+    background-color: #2E2828;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    border-radius: 15px;
+    margin-top: 20px;
+    position: fixed;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+#formRegistro{
+    display: flex;
+    flex-direction: column;
+    background-color: #2E2828;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    max-width: 600px;              /* Limita el ancho del formulario */
+    margin: 20px auto;             /* Centra el formulario en la página */
+}
+.form-container{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.form-column{
+    display: flex;
+    flex-direction: column;
+    min-width: 225px;              
+}
+input{
+    padding: 10px;
+    width: 200px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+}
+textarea{
+    padding: 10px;
+    width: 200px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+}
+label{
+    color: #FFFFFF;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+legend{
+    color: #FFFFFF;
+}
+fieldset{
+    max-width: 200px;
+}
+.categoriaCheck {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 5px;
+    color: #FFFFFF;
+    font-size: 15px;
+    cursor: pointer;
+}
+.categoriaCheck input[type="checkbox"] {
+    width: 16px;
+    height: 14px;
+    cursor: pointer;
+}
+.error{
+    color: red;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 10px;
+    margin-bottom: 10px;
+    max-width: 200px;            /* Limita el ancho del texto */
+    overflow-wrap: break-word;   /* Rompe palabras largas si es necesario */
+    word-break: break-word;      /* Divide palabras largas automáticamente */
+    white-space: normal;         /* Permite saltos de línea normales */
+    display: block;              /* Asegura que ocupe toda la línea disponible */
+}
+#btn-sesion{
+    background-color: #00EC3F;
+    color: #000000;    
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;    
+    text-align: center;
+    align-items: center;
+}
+#btn-sesion:disabled{
+    background-color: #94f5ae;
+    cursor: not-allowed;
+    color: #FFFFFF;
+}
+#centrarBotones{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+}
+#btn-formInicio{
+    background-color: #25ffed;
+    color: #000000;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#btn-formCombinado{
+    background-color: #2c4cff;
+    color: #000000;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#btn-submit{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilos para el formulario de edición */
+.container {
+    padding: 20px;
+    color: white;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    margin-bottom: 30px;
+    font-size: 2rem;
+}
+
+/* Estilos para los campos del formulario */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.2rem;
+    color: white;
+}
+
+input[type="text"],
+input[type="date"],
+textarea {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #444;
+    background-color: #333;
+    color: white;
+    font-size: 1rem;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Estilos para el área de categorías */
+.categorias-container {
+    border: 1px solid #444;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.categoria-item {
+    margin-bottom: 10px;
+}
+
+/* Estilos para el botón de archivo */
+input[type="file"] {
+    display: block;
+    margin-top: 8px;
+    color: white;
+}
+
+/* Estilos para los botones */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin: 5px;
+}
+
+/* Media queries para móviles */
+@media (max-width: 430px) {
+
+    header {
+        padding: 10px;
+    }
+
+    #logoCenter {
+        width: 90px;
+        height: 90px;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-size: 1rem;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    textarea {
+        font-size: 0.9rem;
+        padding: 6px;
+    }
+
+    #formRegistro {
+        width: 85%;
+        margin: 40px;
+        padding: 15px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+        width: 100%; /* Botones a ancho completo en móvil */
+        margin: 5px 0; /* Ajuste de márgenes para botones apilados */
+    }
+
+    /* Ajustes para el área de categorías */
+    .categorias-container {
+        padding: 10px;
+    }
+
+    .categoria-item {
+        margin-bottom: 8px;
+    }
+
+    /* Ajustar el tamaño del texto en los checkboxes */
+    .categoria-item label {
+        font-size: 0.9rem;
+    }
+
+    /* Mejorar la visualización del input file */
+    input[type="file"] {
+        width: 100%;
+        font-size: 0.9rem;
+    }
+
+    /* Ajustar el espaciado entre elementos */
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    /* Hacer el textarea más pequeño en móvil */
+    textarea {
+        min-height: 80px;
+    }
+
+    /* Ajustar el botón de volver */
+    .btn-danger {
+        margin-bottom: 15px;
+    }
+}
+
+/* Estilos específicos para el título EDITAR PELÍCULA */
+.titulo-editar {
+    font-size: 2.5rem;
+    text-align: center;
+    margin: 20px 0;
+    color: white;
+}
+
+@media (max-width: 430px) {
+    .titulo-editar {
+        font-size: 1.8rem;
+        margin: 15px 0;
+    }
+}
